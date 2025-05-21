@@ -24,15 +24,18 @@ model User {
   resetTokenExpires      DateTime? // Expiration time for reset token
 
   createdAt DateTime @default(now())
-  pages     Page[]   @relation("UserPages")
+  links     Link[]   @relation("UserLinks")
 }
 
-model Page {
-  id        Int      @id @default(autoincrement())
-  url       String
-  feedback  String?
-  html      String?
-  createdAt DateTime @default(now())
-  userId    Int
-  user      User     @relation("UserPages", fields: [userId], references: [id])
+model Link {
+  id          String   @id @default(cuid())
+  title       String
+  targetUrl   String
+  price       Int
+  swishNumber String
+  views       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  userId      Int
+  user        User     @relation("UserLinks", fields: [userId], references: [id])
 }
