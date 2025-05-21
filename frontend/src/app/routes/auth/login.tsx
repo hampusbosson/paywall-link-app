@@ -56,87 +56,97 @@ const LoginPage: React.FC = () => {
     }
   };
 
-  const resetPasswordRedirect = () => navigate(paths.auth.resetPassword.getHref());
+  const resetPasswordRedirect = () =>
+    navigate(paths.auth.resetPassword.getHref());
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0D1117] px-4">
-      <div className="bg-[#161b22] border border-white/10 backdrop-blur-lg rounded-2xl shadow-xl w-full max-w-md p-8 space-y-6">
-        <h2 className="text-2xl font-semibold text-white text-center">
-          Welcome back
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-xl w-full max-w-md p-8 space-y-6">
+        <h2 className="text-2xl font-semibold text-gray-900 text-center">
+          Välkommen tillbaka
         </h2>
-        <p className="text-sm text-gray-400 text-center">
-          Sign in to access your dashboard
+        <p className="text-sm text-gray-600 text-center">
+          Logga in för att komma åt din kontrollpanel
         </p>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm text-gray-300 mb-1">
-              Email address
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              E-postadress
             </label>
             <input
               {...register("email")}
               type="email"
               id="email"
-              placeholder="you@example.com"
-              className="w-full px-4 py-2 mb-6 rounded-lg bg-[#0D1117] border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="du@exempel.se"
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
             {errors.email && (
-              <div className="text-red-500 text-xs w-72 text-left -mt-4">
+              <div className="text-red-500 text-xs mt-1">
                 {errors.email.message}
               </div>
             )}
           </div>
 
+          {/* Password */}
           <div>
             <label
               htmlFor="password"
-              className="block text-sm text-gray-300 mb-1"
+              className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Password
+              Lösenord
             </label>
             <input
               {...register("password")}
               type="password"
               id="password"
               placeholder="••••••••"
-              className="w-full px-4 py-2 rounded-lg bg-[#0D1117] border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
             {errors.password && (
-              <div className="text-red-500 text-xs w-72 text-left -mt-4">
+              <div className="text-red-500 text-xs mt-1">
                 {errors.password.message}
               </div>
             )}
-
             {errors.root && (
-              <div className="text-red-500 text-xs w-72 text-left mt-1">
+              <div className="text-red-500 text-xs mt-1">
                 {errors.root.message}
               </div>
             )}
           </div>
-          <button
-            className="underline mb-8 mt-2 text-left text-sm pl-1 font-medium text-gray-300"
-            onClick={resetPasswordRedirect}
-            type="button"
-          >
-            Forgot your password?
-          </button>
 
+          {/* Forgot password */}
+          <div className="text-right">
+            <button
+              type="button"
+              onClick={resetPasswordRedirect}
+              className="text-sm text-blue-600 hover:underline"
+            >
+              Glömt lösenord?
+            </button>
+          </div>
+
+          {/* Submit */}
           <button
-            disabled={isSubmitting}
             type="submit"
-            className="w-full py-3 rounded-lg bg-primary text-white font-semibold hover:bg-blue-600 transition"
+            disabled={isSubmitting}
+            className="w-full py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
           >
-            {isSubmitting ? "Loading..." : "Sign In"}
+            {isSubmitting ? "Laddar..." : "Logga in"}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500">
-          Don’t have an account?{" "}
+        <p className="text-center text-sm text-gray-600">
+          Har du inget konto?{" "}
           <a
             href={paths.auth.signup.path}
-            className="text-blue-400 hover:underline"
+            className="text-blue-600 hover:underline"
           >
-            Sign up
+            Skapa konto
           </a>
         </p>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { paths } from '../config/paths'
+import { paths } from "../config/paths";
 import LandingPage from "./routes/landing";
 import LoginPage from "./routes/auth/login";
 import SignupPage from "./routes/auth/signup";
@@ -10,6 +10,8 @@ import RequestResetPasswordPage from "./routes/auth/request-reset-password";
 import Dashboard from "./routes/app/dashboard";
 import ProtectedRoute from "./routes/protected-route";
 import GuestRoute from "./routes/guest-route";
+import CreateLinkPage from "./routes/app/create-link";
+import AppLayout from "./app-layout";
 
 const AppRouter: React.FC = () => {
   return (
@@ -67,10 +69,13 @@ const AppRouter: React.FC = () => {
           path={paths.app.home.path}
           element={
             <ProtectedRoute>
-                <Dashboard />
+              <AppLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="create" element={<CreateLinkPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

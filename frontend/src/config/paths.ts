@@ -49,5 +49,9 @@ export const paths = {
       path: "home",
       getHref: () => "/home",
     },
+    create: {
+      path: "home/create",
+      getHref: () => "/home/create",
+    }
   },
 } as const;

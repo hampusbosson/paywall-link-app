@@ -62,97 +62,101 @@ const SignupPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0D1117] px-4">
-      <div className="bg-[#161b22] border border-white/10 backdrop-blur-lg rounded-2xl shadow-xl w-full max-w-md p-8 space-y-6">
-        <h2 className="text-2xl font-semibold text-white text-center">
-          Create your account
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-xl w-full max-w-md p-8 space-y-6">
+        <h2 className="text-2xl font-semibold text-gray-900 text-center">
+          Skapa ditt konto
         </h2>
-        <p className="text-sm text-gray-400 text-center">
-          Sign up to start using LucidView
+        <p className="text-sm text-gray-600 text-center">
+          Registrera dig för att börja använda PaywallLink
         </p>
 
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+          {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm text-gray-300 mb-1">
-              Email Adress
+            <label htmlFor="email" className="block text-sm text-gray-700 mb-1">
+              E-postadress
             </label>
             <input
               {...register("email")}
               type="email"
               id="email"
-              placeholder="you@example.com"
-              className="w-full py-2 px-4 rounded-lg bg-[#0D1117] border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="du@exempel.se"
+              className="w-full py-2 px-4 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.email && (
-              <div className="text-red-500 text-xs w-72 text-left mt-1">
+              <div className="text-red-500 text-xs mt-1">
                 {errors.email.message}
               </div>
             )}
           </div>
 
+          {/* Password */}
           <div>
             <label
               htmlFor="password"
-              className="block text-sm text-gray-300 mb-1"
+              className="block text-sm text-gray-700 mb-1"
             >
-              Password
+              Lösenord
             </label>
             <input
               {...register("password")}
               type="password"
               id="password"
               placeholder="••••••••"
-              className="w-full py-2 px-4 rounded-lg bg-[#0D1117] border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full py-2 px-4 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.password && (
-              <div className="text-red-500 text-xs w-72 text-left mt-1">
+              <div className="text-red-500 text-xs mt-1">
                 {errors.password.message}
               </div>
             )}
           </div>
+
+          {/* Repeat Password */}
           <div>
             <label
               htmlFor="repeat-password"
-              className="block text-sm text-gray-300 mb-1"
+              className="block text-sm text-gray-700 mb-1"
             >
-              Repeat Password
+              Upprepa lösenord
             </label>
             <input
               {...register("repeatedPassword")}
               type="password"
-              id="password"
+              id="repeat-password"
               placeholder="••••••••"
-              className="w-full py-2 px-4 rounded-lg mb-2 bg-[#0D1117] border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full py-2 px-4 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.repeatedPassword && (
-              <div className="text-red-500 text-xs w-72 text-left -mt-1">
+              <div className="text-red-500 text-xs mt-1">
                 {errors.repeatedPassword?.message}
               </div>
             )}
-
             {errors.root && (
-              <div className="text-red-500 text-xs w-72 text-left -mt-1">
+              <div className="text-red-500 text-xs mt-1">
                 {errors.root.message}
               </div>
             )}
           </div>
 
+          {/* Submit */}
           <button
             disabled={isSubmitting}
             type="submit"
-            className="w-full py-3 px-4 rounded-lg bg-primary text-white font-semibold hover:bg-blue-600 transition"
+            className="w-full py-3 px-4 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
           >
-            {isSubmitting ? "Loading..." : "Sign Up"}
+            {isSubmitting ? "Laddar..." : "Skapa konto"}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500">
-          Already have an account?{" "}
+        <p className="text-center text-sm text-gray-600">
+          Har du redan ett konto?{" "}
           <a
             href={paths.auth.login.path}
-            className="text-blue-400 hover:underline"
+            className="text-blue-600 hover:underline"
           >
-            Log in
+            Logga in
           </a>
         </p>
       </div>

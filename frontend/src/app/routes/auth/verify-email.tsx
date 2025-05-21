@@ -100,12 +100,14 @@ const VerifyEmailPage: React.FC = () => {
   const handleModalClose = () => setModalVisible(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0D1117] px-4">
-      <div className="bg-[#161b22] border border-white/10 backdrop-blur-lg rounded-2xl shadow-xl w-full max-w-md p-8 space-y-6 text-center">
-        <h2 className="text-2xl font-semibold text-white">Verify your email</h2>
-        <p className="text-sm text-gray-400">
-          We’ve sent a 6-digit verification code to your email. Enter it below
-          to verify your account.
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-xl w-full max-w-md p-8 space-y-6 text-center">
+        <h2 className="text-2xl font-semibold text-gray-900">
+          Verifiera din e-post
+        </h2>
+        <p className="text-sm text-gray-600">
+          Vi har skickat en 6-siffrig verifieringskod till din e-post. Ange den
+          nedan för att verifiera ditt konto.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -123,10 +125,11 @@ const VerifyEmailPage: React.FC = () => {
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 onPaste={index === 0 ? handlePaste : undefined}
-                className="w-12 h-14 text-center text-lg rounded-lg bg-[#0D1117] border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-12 h-14 text-center text-lg rounded-lg bg-white border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             ))}
           </div>
+
           {errorMessage && (
             <p className="text-red-500 text-xs -mt-2 w-72 text-center">
               {errorMessage}
@@ -136,22 +139,23 @@ const VerifyEmailPage: React.FC = () => {
           <button
             onClick={handleVerify}
             type="submit"
-            className="w-full py-3 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 transition"
+            className="w-full py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
           >
-            Verify Email
+            Verifiera e-post
           </button>
         </form>
 
         <div className="mt-4">
-          <p className="text-sm text-gray-500">Didn’t receive the code?</p>
+          <p className="text-sm text-gray-600">Fick du ingen kod?</p>
           <button
             onClick={handleResendOTP}
-            className="mt-1 text-blue-400 hover:underline"
+            className="mt-1 text-blue-600 hover:underline"
           >
-            Resend Verification Code
+            Skicka verifieringskod igen
           </button>
         </div>
       </div>
+
       {modalVisible && (
         <ConfirmationModal message={modalMessage} onClose={handleModalClose} />
       )}

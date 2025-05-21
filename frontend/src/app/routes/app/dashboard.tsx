@@ -1,34 +1,87 @@
 import React from "react";
+import { logout } from "../../../lib/auth";
+import { useNavigate } from "react-router-dom";
+import { paths } from "../../../config/paths";
+import useAuth from "../../../hooks/auth/useAuth";
 
 const Dashboard: React.FC = () => {
-  return (
-    <div className="min-h-screen bg-[#0D1117] px-4 py-10">
-      <div className="max-w-6xl mx-auto">
-        <header className="mb-10 text-center">
-          <h1 className="text-3xl font-bold text-white">Welcome back 👋</h1>
-          <p className="text-gray-400 text-sm mt-2">Your recent landing page analyses</p>
-        </header>
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((item) => (
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setUser(null);
+      navigate(paths.landing.home.path);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const user = {
+    name: "Hampus",
+    email: "hampus@example.com",
+  };
+
+  const links = [
+    {
+      id: "abc123",
+      title: "Notion CV-mall",
+      url: "https://paywall.se/u/abc123",
+      views: 42,
+      createdAt: "2024-05-20",
+      price: 59,
+    },
+    {
+      id: "xyz789",
+      title: "AI Prompt Pack",
+      url: "https://paywall.se/u/xyz789",
+      views: 12,
+      createdAt: "2024-05-15",
+      price: 89,
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto space-y-8">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900">
+            Välkommen tillbaka, {user.name}
+          </h1>
+          <p className="text-sm text-gray-600">Här är dina aktiva länkar</p>
+        </div>
+
+        <div className="flex justify-end">
+          <a
+            href={paths.app.create.path}
+            className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition"
+          >
+            + Skapa ny länk
+          </a>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {links.map((link) => (
             <div
-              key={item}
-              className="bg-[#161b22] border border-white/10 backdrop-blur-md rounded-xl p-6 shadow hover:shadow-lg transition"
+              key={link.id}
+              className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 space-y-2"
             >
-              <h3 className="text-white font-semibold mb-2">example.com</h3>
-              <p className="text-sm text-gray-400 mb-4">Analyzed on April 28, 2025</p>
-              <div className="flex gap-2">
-                <button className="px-4 py-2 text-sm rounded bg-blue-500 text-white font-medium hover:bg-blue-600 transition">
-                  View Feedback
-                </button>
-                <button className="px-4 py-2 text-sm rounded border border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white transition">
-                  Download HTML
-                </button>
-              </div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                {link.title}
+              </h3>
+              <p className="text-sm text-gray-600">{link.url}</p>
+              <p className="text-sm text-gray-500">Pris: {link.price} kr</p>
+              <p className="text-sm text-gray-500">Visningar: {link.views}</p>
+              <p className="text-sm text-gray-400">Skapad: {link.createdAt}</p>
             </div>
           ))}
         </div>
       </div>
+      <button
+      onClick={handleLogout} className="text-black">
+        logga ut
+      </button>
     </div>
   );
 };
