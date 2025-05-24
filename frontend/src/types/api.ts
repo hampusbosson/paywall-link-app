@@ -16,4 +16,11 @@ export type ApiResponse = {
     token: string;
 }
 
+export type Link = Entity<{
+    title: string;
+    targetUrl: string;
+    price: Number;
+    swishNumber: Number;
+}>
+
 
