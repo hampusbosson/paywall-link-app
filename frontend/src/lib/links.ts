@@ -2,9 +2,9 @@ import { apiClient } from "./api-client";
 
 const api = apiClient;
 
-export async function createLink(title: string, targetUrl: string, price: number, swishNumber: number) {
+export async function createLink(title: string, targetUrl: string, price: number, swishNumber: string) {
   try {
-    const response = await api.post("/links/create", {
+    const response = await api.post("/link/create", {
       title,
       targetUrl,
       price,

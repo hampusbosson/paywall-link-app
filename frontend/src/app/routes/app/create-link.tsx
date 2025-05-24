@@ -1,9 +1,48 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+import { createLink } from "../../../lib/links";
+
+const createLinkSchema = z.object({
+  title: z.string().min(1, "Titel krävs"),
+  targetUrl: z.string().url("Måste vara en giltig URL"),
+  price: z.number().min(1, "Priset måste vara minst 1 kr"),
+  swishNumber: z
+    .string()
+    .regex(
+      /^07\d{8}$/,
+      "Ogiltigt Swish-nummer (börja med 07 och ha 10 siffror)",
+    ),
+});
+
+type CreateLinkSchema = z.infer<typeof createLinkSchema>;
 
 const CreateLinkPage: React.FC = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // TODO: connect with backend / form submission logic
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateLinkSchema>({
+    resolver: zodResolver(createLinkSchema),
+  });
+
+  const onSubmit = async (data: CreateLinkSchema) => {
+    try {
+      await createLink(
+        data.title,
+        data.targetUrl,
+        data.price,
+        data.swishNumber,
+      );
+      navigate(`/home`);
+    } catch (err) {
+      console.error(err);
+      alert("Kunde inte skapa länken.");
+    }
   };
 
   return (
@@ -16,7 +55,7 @@ const CreateLinkPage: React.FC = () => {
           Fyll i formuläret nedan för att generera din betallänk
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label htmlFor="title" className="block text-sm text-gray-700 mb-1">
               Titel
@@ -25,9 +64,14 @@ const CreateLinkPage: React.FC = () => {
               type="text"
               id="title"
               placeholder="Ex: CV-mall i Notion"
-              required
+              {...register("title")}
               className="w-full px-4 py-2 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            {errors.title && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.title.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -41,9 +85,14 @@ const CreateLinkPage: React.FC = () => {
               type="url"
               id="targetUrl"
               placeholder="https://notion.so/…"
-              required
+              {...register("targetUrl")}
               className="w-full px-4 py-2 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            {errors.targetUrl && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.targetUrl.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -54,9 +103,14 @@ const CreateLinkPage: React.FC = () => {
               type="number"
               id="price"
               placeholder="Ex: 49"
-              required
+              {...register("price", { valueAsNumber: true })}
               className="w-full px-4 py-2 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            {errors.price && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.price.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -70,9 +124,14 @@ const CreateLinkPage: React.FC = () => {
               type="tel"
               id="swishNumber"
               placeholder="0701234567"
-              required
+              {...register("swishNumber")}
               className="w-full px-4 py-2 rounded-lg border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            {errors.swishNumber && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.swishNumber.message}
+              </p>
+            )}
           </div>
 
           <button
