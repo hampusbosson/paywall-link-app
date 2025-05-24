@@ -22,7 +22,6 @@ export const createLink = async (req: Request, res: Response) => {
         });
 
         res.status(201).json({ id: newLink.id });
-       
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Could not create link"})
