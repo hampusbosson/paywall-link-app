@@ -11,6 +11,7 @@ import Dashboard from "./routes/app/dashboard";
 import ProtectedRoute from "./routes/protected-route";
 import GuestRoute from "./routes/guest-route";
 import CreateLinkPage from "./routes/app/create-link";
+import LinkDetailsPage from "./routes/app/link-details";
 import AppLayout from "./app-layout";
 
 const AppRouter: React.FC = () => {
@@ -75,6 +76,7 @@ const AppRouter: React.FC = () => {
         >
           <Route index element={<Dashboard />} />
           <Route path="create" element={<CreateLinkPage />} />
+          <Route path="link/:id" element={<LinkDetailsPage />}/>
         </Route>
       </Routes>
     </BrowserRouter>

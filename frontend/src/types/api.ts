@@ -1,5 +1,6 @@
 export type BaseEntity = {
     id: string;
+    createdAt: string;
 }
 
 export type Entity<T> = {
@@ -17,10 +18,12 @@ export type ApiResponse = {
 }
 
 export type Link = Entity<{
-    title: string;
-    targetUrl: string;
-    price: Number;
-    swishNumber: Number;
-}>
+  title: string;
+  targetUrl: string;
+  price: number;
+  swishNumber: string;
+  views: number;
+  userId: number;
+}>;
 
 

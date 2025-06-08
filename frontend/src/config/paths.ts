@@ -52,6 +52,10 @@ export const paths = {
     create: {
       path: "home/create",
       getHref: () => "/home/create",
+    },
+    details: {
+      path: "link/:id",
+      getHref: (id: string) => `/home/link/${id}`,
     }
   },
 } as const;
